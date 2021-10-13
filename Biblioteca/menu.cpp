@@ -3,7 +3,7 @@
 
 using namespace std;
 
-class libro 
+class libro //Clase libro que gestiona todo lo relacionado con las libros
 {
 private:
     string titulo, categoria;
@@ -16,43 +16,40 @@ public:
     void printLibro();
     string getLibro();
 
-    // Editar un libro para decir que ya está o no disponible
-    void setDisp(bool d) 
+    void setDisp(bool d) //Edita la disponibilidad del libro
     {
         disponible = d;
     }
-    // Retornar si el libro está disponible
-    bool getDisp() 
+    
+    bool getDisp()
     {
         return disponible;
     };
-    // Retorna el titulo del libro
-    string getTitulo() 
+    
+    string getTitulo()
     {
         return titulo;
     }
-    // Retorna el titulo del libro
+
     string getCategoria() 
     {
         return categoria;
     }
 };
 
-// Imprimir por pantalla el libro
-void libro::printLibro() 
+void libro::printLibro() //Muestra los libros
 {
     cout << titulo << " - " << categoria << endl;
 }
 
-// Retornar el libro, su categoría y si está disponible o no
-string libro::getLibro() 
+string libro::getLibro() //Devuelve el libro, su categoría y si está disponible o no
 {
     string libro = titulo + " - " + categoria;
 
     return libro;
 };
 
-class persona 
+class persona //Clase persona que gestiona todo lo relacionado con las personas
 {
 private:
     string nombre, dni;
@@ -67,12 +64,11 @@ public:
     void getHistorial();
     void tieneLibro();
 
-    // Retorna el libro actual de la persona
-    libro getActual() 
+    libro getActual()
     {
         return actual;
     }
-    // Retorna el nombre y apellidos de la persona
+
     string getNombre() 
     {
         return nombre;
@@ -97,8 +93,7 @@ public:
     void printPersona();
 };
 
-// Constructor de persona
-persona::persona(string no, string dn, libro act, libro hist[5]) 
+persona::persona(string no, string dn, libro act, libro hist[5]) //Constructor de persona
 { 
     nombre = no;
     dni = dn;
@@ -109,8 +104,7 @@ persona::persona(string no, string dn, libro act, libro hist[5])
     }
 }
 
-// Si la persona seleccionada tiene libro se imprime por pantalla
-void persona::tieneLibro() 
+void persona::tieneLibro() //Si la persona seleccionada tiene libro se imprime por pantalla
 {
     if (actual.getTitulo() != "") 
     {
@@ -122,8 +116,7 @@ void persona::tieneLibro()
     }
 }
 
-// Se imprime por pantalla los libros del historial de la pesona
-void persona::getHistorial() 
+void persona::getHistorial() //El historial de la persona
 {
     for (int i = 0; i < 5; i++) 
     {
@@ -132,17 +125,16 @@ void persona::getHistorial()
 
 }
 
-// Imprimir por pantalla el libro
-void persona::printPersona() 
+void persona::printPersona() //Imprimir por pantalla el libro
 {
     cout << nombre << " - " << dni << endl;
 }
 
 
-void printListaPersonas (persona personas[4]) 
+void printListaPersonas (persona personas[4]) //Imprime las personas
 {
     cout << endl;
-    cout << "[I] Lista personas registradas:" << endl;
+    cout << "- Lista personas registradas:" << endl;
 
     for (int i = 0; i < 4; i++) 
     { 
@@ -152,11 +144,10 @@ void printListaPersonas (persona personas[4])
 
 libro libros[20];
 
-//IMPRIMIR LISTA DE LIBROS DISPONIBLES
-void printListaLibros (libro libros[20]) 
+void printListaLibros (libro libros[20]) //Imprime los libros disponibles
 {
     cout << endl;
-    cout << "[I] Lista libros disponibles:" << endl;
+    cout << "- Lista libros disponibles:" << endl;
 
     for (int i = 0; i < 20; i++) 
     {
@@ -167,8 +158,7 @@ void printListaLibros (libro libros[20])
     }
 }
 
-//DESASIGNAR LIBRO A PERSONA
-libro desasignarLibro (libro libros[20], persona p, persona personas[3]) 
+libro desasignarLibro (libro libros[20], persona p, persona personas[3]) //Poner un libro a una persona
 {
     libro libroRet;
 
@@ -176,15 +166,13 @@ libro desasignarLibro (libro libros[20], persona p, persona personas[3])
     {
         if (p.getActual().getTitulo() == libros[i].getTitulo())
         {
-            cout << "DESASIGNANDO EL LIBRO " << libros[i].getTitulo() << " a " << p.getNombre() << endl;
+            cout << "Designando el libro " << libros[i].getTitulo() << " a " << p.getNombre() << endl;
             libroRet = libros[i];
             libros[i].setDisp(true);
 
-            // Se recorre la lista de personas 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++) //Se recorre la lista de personas 
             {
-                // Si el nombre de la persona coincide se desasigna el libro actual y se actualiza su historial
-                if (p.getNombre() == personas[j].getNombre())
+                if (p.getNombre() == personas[j].getNombre()) //Si coincide su nombre le pone el libro y actualiza el historial
                 {
                     personas[j].setLibro({});
                 }
@@ -201,42 +189,34 @@ libro desasignarLibro (libro libros[20], persona p, persona personas[3])
 
 }
 
-//ADJUDICAR LIBRO A PERSONA
-libro darLibro (libro l, libro libros[20], persona p, persona personas[3]) 
+libro darLibro (libro l, libro libros[20], persona p, persona personas[3]) //Dar libro a persona
 {
     libro libroRet;
 
     for (int i = 0; i < 20; i++) 
     {
-        // Si el libro que se quiere dar existe...
-        if (l.getTitulo() == libros[i].getTitulo()) 
-        {
-            // Si el libro que se quiere dar no está disponible, no se asigna
-            if (!libros[i].getDisp()) 
+        if (l.getTitulo() == libros[i].getTitulo()) //Comprobamos que existe el libro
+        {            
+            if (!libros[i].getDisp()) //Comprobamos que este disponible
             {
-                cout << "No se puede asignar " << libros[i].getTitulo() << ", ya esta asignado." << endl;
+                cout << "No se puede dar " << libros[i].getTitulo() << ", lo tiene otra persona." << endl;
             } else 
             {
-                cout << "DANDO LIBRO // " << libros[i].getTitulo() << endl;
+                cout << "Dando libro -> " << libros[i].getTitulo() << endl;
                 libroRet = libros[i];
                 libros[i].setDisp(false);
 
-                // Se recorre la lista de personas 
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < 4; j++) //Se recorre la lista de personas 
                 {
-                    // Si el nombre de la persona coincide se asigna el libro actual y se actualiza su historial
-                    if (p.getNombre() == personas[j].getNombre())
+                    if (p.getNombre() == personas[j].getNombre()) //Si coincide su nombre le pone el nombre y actualiza el historial
                     {
                         string lDisp = personas[j].getActual().getTitulo();
                         personas[j].setLibro(l);
                         personas[j].setHistorial(l);
                         cout << "Se ha asignado " << l.getTitulo() << " a " << personas[j].getNombre() << endl;
-
-                        // Se asigna al anterior libro de la persona la disponiblidad a true
-                        for (int k = 0; k < 20; k++) 
-                        {
-                            //cout << lDisp.getTitulo() << endl;
-                            
+                     
+                        for (int k = 0; k < 20; k++) //Ponemos el libro anterior a true
+                        {                           
                             if (lDisp == libros[k].getTitulo())
                             {
                                 cout << "BuenasTardes " << endl;
@@ -267,13 +247,13 @@ string leerString(string txt)
 
 int mostrarOpciones() 
 {
-    cout << "[MENU] Selecciona una de las opciones: " << endl;
+    cout << "Selecciona una de las opciones: " << endl;
     cout << "  1 - Comprobar que libros hay disponibles" << endl;
     cout << "  2 - Ver el historial de libros de una persona" << endl;
     cout << "  3 - Ver si una persona tiene un libro o no" << endl;
     cout << "  4 - Sacar un libro (asignárselo a una persona)" << endl;
     cout << "  5 - Devolver un libro" << endl;
-    cout << "  6 - Registro de personas" << endl;
+    cout << "  6 - Listado de personas" << endl;
     cout << "  7 - Salir" << endl;
     int res;
     cout << ">>: "; 
@@ -286,7 +266,7 @@ int mostrarOpciones()
 int main() 
 {
     //INICIALIZACION DE DATOS
-    libro l1("Cien anios de soledad", "Fantasia", true);
+    libro l1("Cien añios de soledad", "Fantasia", true);
     libro l2("El senior de los anillos", "Accion", true);
     libro l3("Orgullo y prejuicio", "Romance", true);
     libro l4("Un mundo feliz", "Fantasia", true);
@@ -309,31 +289,27 @@ int main()
 
     libro libros[20] = {l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l20};
 
-    libro h1[5] = {l2,l2,l3,l4,l5};
-    persona p1("Alejandro Garcia", "0212010D", {}, h1);
-    libro h2[5] = {l2,l2,l3,l4,l5};
-    persona p2("Ruben Gomez", "9292929X", {}, h2);
-    libro h3[5] = {l2,l2,l3,l4,l5};
-    persona p3("Roberto Perez", "020120Z", {}, h3);
+    libro h1[5] = {l1,l2,l11,l14,l18};
+    persona p1("Ángel Esquinas", "08030605K", {}, h1);
+    libro h2[5] = {l17,l18,l19,l20,l5};
+    persona p2("Oscar Llorens", "15324865B", {}, h2);
+    libro h3[5] = {l6,l8,l13,l10,l11};
+    persona p3("Guillermo Perez", "15328695Z", {}, h3);
 
     string n = "";
     string d = "";
 
-    cout << "[I] Introduce el nombre de la persona:\n";
-    cout << ">>: ";
-    getline(cin, n);
-    cout << "[I] Introduce el dni de la persona:\n";
-    cout << ">>: ";
-    getline(cin, d);
-
-    cout<<n<<d;
+    cout << "- Introduce el nombre de la persona: \n";
+    cin >> n;
+    cout << "- Introduce el dni de la persona: \n";
+    cin >> d;
 
     libro h4[5] = {};
     persona p4( n, d, {}, h4);
 
     persona personas[4] = {p1, p2, p3, p4};
 
-    int input;
+    int input;// Varieblaes auxiliares
     string nombrePersona = "";
     string libroEscogido = "";
     bool c = true;
@@ -348,14 +324,12 @@ int main()
         switch (input) 
         {
         case 1:
-            // Se imprimen por pantalla todos los libros disponibles
-            printListaLibros(libros);
+            printListaLibros(libros); //Se imprimen por pantalla los libros disponibles
             break;
 
         case 2:
-            cout << "[I] Introduce el nombre de la persona:\n";
-            cout << ">>: ";
-            getline(cin, nombrePersona);
+            cout << "- Introduce el nombre de la persona: \n";
+            cin >> nombrePersona;
 
             cout << endl;
 
@@ -363,67 +337,59 @@ int main()
 
             for (persona x : personas) 
             {
-                // Si la persona introducida existe se extrae su historial para imprimirlo por pantalla
-                if (x.getNombre() == nombrePersona) 
+                if (x.getNombre() == nombrePersona) //Comprobamos que exista
                 {
-                    x.getHistorial();
+                    x.getHistorial(); //Ponemos su historial
                     control = true;
                 }
             }
-            // Si no existe la persona introducida da error
-            if (!control)
+            
+            if (!control)   //Si no existe la persona introducida da error
             {
-                cout << "[ERROR] No se han encontrado registros" << endl;
+                cout << "- No se han encontrado la persona" << endl;
             }
             break;
 
         case 3:
-            cout << "[I] Introduce el nombre de la persona:\n";
-            cout << ">>: ";
-            getline(cin, nombrePersona);
-
+            cout << "- Introduce el nombre de la persona:\n";
+            cin >> nombrePersona;
             cout << endl;
 
             control = false;
             for (persona x : personas) 
-            {
-                // Si la persona introducida existe se extrae su libro actual y se imprime por pantalla
-                if (x.getNombre() == nombrePersona)
+            {                
+                if (x.getNombre() == nombrePersona) //Comprobamos que la persona existe
                 {
-                    x.tieneLibro();
+                    x.tieneLibro(); 
                     control = true;
                 }
             }
             // Si no existe la persona introducida da error
             if (!control) 
             {
-                cout << "[ERROR] No se han encontrado registros" << endl;
+                cout << "- No se han encontrado la persona" << endl;
             }
             break;
 
         case 4:
-            cout << "[I] Introduce el nombre del libro:\n";
-            cout << ">>: ";
-            getline(cin, libroEscogido);
+            cout << "- Introduce el nombre del libro:\n";
+            cin >> libroEscogido;
 
-            cout << "[I] Introduce el nombre de la persona:\n";
-            cout << ">>: ";
-            getline(cin, nombrePersona);
+            cout << "- Introduce el nombre de la persona:\n";
+            cin >> nombrePersona;
 
             cout << endl;
 
             control = false;
             for (libro l : libros) 
             {
-                // Si el libro introducida existe...
-                if (l.getTitulo() == libroEscogido)
+                if (l.getTitulo() == libroEscogido) //Comprobamos que el libro exista
                 {
                     for (persona x : personas) 
-                    {
-                        // Si la persona introducida existe, se inserta el libro introducido en su libro actual
+                    {                      
                         if (x.getNombre() == nombrePersona)
                         {
-                            libro libroAsignado = darLibro(l, libros, x, personas);
+                            libro libroAsignado = darLibro(l, libros, x, personas); //Ponemos libro introducido como su libro actual
 
                             control = true;
                         }
@@ -431,17 +397,15 @@ int main()
                 }
             }
 
-            // Si no existe la persona y el libro introducidos da error
-            if (!control) 
+            if (!control) //Si no existe la persona y el libro introducidos da error
             {
-                cout << "[ERROR] No se han encontrado registros" << endl;
+                cout << "- No se han encontrado registros" << endl;
             }
             break;
 
         case 5:
-            cout << "[I] Introduce el nombre de la persona:\n";
-            cout << ">>: ";
-            getline(cin, nombrePersona);
+            cout << "- Introduce el nombre de la persona:\n";
+            cin >> nombrePersona;
 
             cout << endl;
 
@@ -449,32 +413,28 @@ int main()
             
             for (persona x : personas) 
             {
-                // Si la persona introducida existe, se desasigna el libro actual
                 if (x.getNombre() == nombrePersona)
                 {
                     libro libroDesasignado = desasignarLibro(libros, x, personas);
 
                     control = true;
                 }
-            }
-            
-            // Si no existe la persona introducida da error
-            if (!control) 
+            }           
+
+            if (!control) //Si no existe la persona introducida da error
             {
-                cout << "[ERROR] No se han encontrado registros" << endl;
+                cout << "- No se han encontrado la persona" << endl;
             }
             break;
         case 6:
-            // Se imprimen por pantalla todos las personas registradas
-            printListaPersonas(personas);
+           
+            printListaPersonas(personas); //Se imprimen por pantalla todos las personas registradas
            
             break;
 
         case 7: return 0; break;
 
-        default:
-            c = false;
-            break;
+        default: c = false; break;
         }
     }
 }
