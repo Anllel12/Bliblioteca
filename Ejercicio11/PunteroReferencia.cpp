@@ -1,3 +1,9 @@
+
+/*Ejercicio para comrpobar que un valor pasando 
+por el puntero o sin parsar por el es igual despues de una funcion.
+*/
+
+
 #include <iostream>
 
 using namespace std;
@@ -7,15 +13,15 @@ int dato;
 class puntero
 {
     private:
-        int *punteros = NULL;
-        int numero = dato;
+        int *punteros = NULL; //Inicializamos el puntero
+        int numero = dato; //Inicializamos el valor
     public:
         void calcula();
 };
 void puntero::calcula()
 {
     numero = dato;
-    punteros = &numero;
+    punteros = &numero; //Apuntamos el puntero a la direccion del valor
 
     *punteros = *punteros + 10;
     cout << "Valor funcion puntero: " << numero <<"\n";
