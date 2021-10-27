@@ -11,17 +11,35 @@ using namespace std;
 
 string names [5] = {"Ángel Esquinas", "Ruben Hijosa", "Sara Rodrigo"};
 
-class menu
+class task // Clase que contiene todo lo que tiene que ver con las tareas
 {
 private:
-    int n;
+
+    string nameTask = ""; // candidata para el FreeSpace
+
 public:
-   int showMenu(/* args */);
+    void addTask(); // Funcion que añade tareas
 };
 
-int menu::showMenu(/* args */)
+void task::addTask() // Funcion que añade tareas
 {
-    cout << "Selecciona una de las opciones: \n";
+    cin >> nameTask;
+}
+
+class menu // Clase que contiene todo lo utilizado en el menu
+{
+private:
+    task t;
+
+    int n;
+
+public:
+   int showMenu(); // Funcion que muestra el menu y te hace elegir una funcion
+};
+
+int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
+{
+    cout << "\nSelecciona una de las opciones: \n";
     cout << "  1 - Crear una tarea" << endl;
     cout << "  2 - Borrar una tarea" << endl;
     cout << "  3 - Editar una tarea" << endl;
@@ -31,11 +49,14 @@ int menu::showMenu(/* args */)
     cout << ">>: "; 
     cin >> n;
 
-
     switch (n)
     {
     case 1: 
-        
+        cout << "Escribe que tarea quieres realizar: \n";
+
+        t.addTask();
+
+        showMenu();
         break;
 
     case 2: 
@@ -58,11 +79,11 @@ int menu::showMenu(/* args */)
         break;
 
     default:
-        cout << "¿Porque no pones un numero de los que hay? \n\n";
+        cout << "¿Porque no pones un numero de los que hay? \n";
+
         showMenu();
         break;
     }
-
 }
 
 
