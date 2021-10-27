@@ -58,8 +58,8 @@ int menu::showMenu(/* args */)
         break;
 
     default:
-        cout << "¿Porque no pones un numero? \n";
-
+        cout << "¿Porque no pones un numero de los que hay? \n\n";
+        showMenu();
         break;
     }
 
