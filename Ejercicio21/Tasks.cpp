@@ -6,35 +6,61 @@
 */
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
-string names [5] = {"Ángel Esquinas", "Ruben Hijosa", "Sara Rodrigo"};
+string names [3] = {"Angel", "Jorge", "Sara"};
+
+vector <string> listTasks[10] = {};
+vector <string> assignedTasks[10] = {};
+
+void showArrays(){ // Muestra el array de lista
+    for(auto& i : listTasks) {
+        for(auto& k : i) {
+            cout << k << " ";
+        }
+    }
+}
 
 class task // Clase que contiene todo lo que tiene que ver con las tareas
 {
-private:
+    private:
 
-    string nameTask = ""; // candidata para el FreeSpace
+        string nameTask; // candidata para el FreeSpace
+        string assignTask; // candidata para el FreeSpace
 
-public:
-    void addTask(); // Funcion que añade tareas
+    public:
+        void addTask(); // Funcion que añade tareas
 };
 
 void task::addTask() // Funcion que añade tareas
 {
-    cin >> nameTask;
+    cout << "Escribe que tarea quieres realizar: \n";
+    
+    getline(cin, nameTask);
+
+    cout << "Escribe a quien quieres asignar la tarea: \n";
+    
+    getline(cin, assignTask);
+
+    cout << "Añadiendo la tarea: "<< nameTask << " y asignandola a : " << assignTask << "\n";
+
+    listTasks->push_back(nameTask);
+    assignedTasks->push_back(assignTask);
+
+    showArrays();
 }
 
 class menu // Clase que contiene todo lo utilizado en el menu
 {
-private:
-    task t;
+    private:
+        task t;
 
-    int n;
+        int n;
 
-public:
-   int showMenu(); // Funcion que muestra el menu y te hace elegir una funcion
+    public:
+    int showMenu(); // Funcion que muestra el menu y te hace elegir una funcion
 };
 
 int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
@@ -48,11 +74,11 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
     cout << "  6 - Salir" << endl;
     cout << ">>: "; 
     cin >> n;
+    cin.ignore ( 100 , '\n');
 
     switch (n)
     {
     case 1: 
-        cout << "Escribe que tarea quieres realizar: \n";
 
         t.addTask();
 
@@ -85,7 +111,6 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
         break;
     }
 }
-
 
 int main(int argc, char const *argv[])
 {
