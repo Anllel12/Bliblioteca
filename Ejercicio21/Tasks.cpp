@@ -10,18 +10,23 @@
 
 using namespace std;
 
-string names [3] = {"Angel", "Jorge", "Sara"};
-
 vector <string> listTasks[10] = {};
 vector <string> assignedTasks[10] = {};
 
 void showArrays(){ // Muestra el array de lista
+
+    int u = 1;
+
     for(auto& i : listTasks) {
         for(auto& k : i) {
-            cout << k << " ";
+            cout << u << " -> "<< k <<"\n";
+
+            u= u+1;
         }
     }
+    
 }
+
 
 class task // Clase que contiene todo lo que tiene que ver con las tareas
 {
@@ -30,8 +35,11 @@ class task // Clase que contiene todo lo que tiene que ver con las tareas
         string nameTask; // candidata para el FreeSpace
         string assignTask; // candidata para el FreeSpace
 
+        int x;
+
     public:
         void addTask(); // Funcion que añade tareas
+        void removeTask(); // Funcion para eliminar tareas
 };
 
 void task::addTask() // Funcion que añade tareas
@@ -48,8 +56,21 @@ void task::addTask() // Funcion que añade tareas
 
     listTasks->push_back(nameTask);
     assignedTasks->push_back(assignTask);
+}
+
+void task::removeTask() // Funcion para eliminar tareas
+{
+    cout << "Selecciona que tarea quieres eliminar: \n";
 
     showArrays();
+
+    cin >> x;
+    cin.ignore ( 100 , '\n'); 
+
+    auto elementRemove = listTasks->begin() + (x-1);
+    if (elementRemove != listTasks->end()) {
+        listTasks->erase(elementRemove);
+    }
 }
 
 class menu // Clase que contiene todo lo utilizado en el menu
@@ -86,7 +107,8 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
         break;
 
     case 2: 
-        
+        t.removeTask();
+        showMenu();
         break;
 
     case 3: 
@@ -95,6 +117,9 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
 
     case 4: 
         
+        showArrays();
+
+        showMenu();
         break;
 
     case 5: 
