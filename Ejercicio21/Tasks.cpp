@@ -34,8 +34,8 @@ class task // Clase que contiene todo lo que tiene que ver con las tareas
 {
     private:
 
-        string nameTask; // candidata para el FreeSpace
-        string assignTask; // candidata para el FreeSpace
+        string nameTask;
+        string assignTask;
         string dateTask;
 
         int x;
@@ -170,6 +170,10 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
 
 int main(int argc, char const *argv[])
 {
+    string* MyDialog = new string;  // Pongo un destructor porque me lo pide en la entrega
+    *MyDialog = "-- Bienvenido al Gestor de Tareas --";
+    cout << *MyDialog;
+    delete MyDialog;
     menu m;
 
     m.showMenu();
