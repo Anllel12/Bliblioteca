@@ -1,21 +1,33 @@
-#include <iostream>
-#include <ctime>
-
+// C++ program to sort an array of dates
+#include<bits/stdc++.h>
 using namespace std;
+  
+// Structure for date
+struct Date
+{
+    int day, month, year;
+};
+int main()
+{
+    
+    int x;
+    int y;
+    int z;
 
-int main() {
-   // current date/time based on current system
-   time_t now = time(0);
+    Date arr[] = {
+                  {25,  3, 2010},
+                  { 3, 12, 1676},
+                  {18, 11, 1982},
+                  {19,  4, 2015},
+                  { 9,  7, 2015}};
+                  cin >> arr[1].day;
+    int n = sizeof(arr)/sizeof(arr[0]);
 
-   cout << "Number of sec since January 1,1970 is:: " << now << endl;
-
-   tm *ltm = localtime(&now);
-
-   // print various components of tm structure.
-   cout << "Year:" << 1900 + ltm->tm_year<<endl;
-   cout << "Month: "<< 1 + ltm->tm_mon<< endl;
-   cout << "Day: "<< ltm->tm_mday << endl;
-   cout << "Time: "<< 5+ltm->tm_hour << ":";
-   cout << 30+ltm->tm_min << ":";
-   cout << ltm->tm_sec << endl;
+    cout << "Sorted dates are\n";
+    for (int i=0; i<n; i++)
+    {
+        cout << arr[i].day << " " << arr[i].month
+             << " " << arr[i].year;
+        cout << endl;
+    }
 }

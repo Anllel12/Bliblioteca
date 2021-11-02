@@ -15,14 +15,17 @@ vector <string> listTasks = {};
 vector <string> assignedTasks = {};
 vector <string> dateTasks = {};
 
+int u = 1;
+int *pointer = NULL; //Inicializamos el puntero
 
-void showArrays(){ // Muestra el array de lista
+void showTasks(){ // Muestra el array de lista
 
-    int u = 1;
+    pointer = &u; // Pongo un puntero porque me lo pide en la entrega
+    *pointer = 1;
 
     for(int i = 0; i<listTasks.size(); i++) {
         cout << u << " -> " << listTasks[i] << " -> asignado a -> " << assignedTasks[i] << " -> el dia -> " << dateTasks[i] <<endl;
-        u = u+1;
+        *pointer = *pointer+1;
     } 
 }
 
@@ -53,9 +56,13 @@ void task::addTask() // Funcion que añade tareas
     
     getline(cin, assignTask);
 
-    cout << "Escribe a el dia que quieres finalizar la tarea: \n";
-    try {   
-        getline(cin, dateTask);
+    try { // Pongo un try catch porque me lo pide en la entrega
+        dateTask = "";
+        while (dateTask.size() != 10)
+        {
+            cout << "Escribe a el dia que quieres finalizar la tarea (DD/MM/AAAA): \n";
+            getline(cin, dateTask);          
+        }
     }
     catch (exception e ){ 
         throw ;
@@ -65,13 +72,14 @@ void task::addTask() // Funcion que añade tareas
 
     listTasks.push_back(nameTask);
     assignedTasks.push_back(assignTask);
+    dateTasks.push_back(dateTask);
 }
 
 void task::removeTask() // Funcion para eliminar tareas
 {
     cout << "Selecciona que tarea quieres eliminar: \n";
 
-    showArrays();
+    showTasks();
 
     cin >> x;
     cin.ignore ( 100 , '\n'); 
@@ -118,8 +126,7 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
     cout << "  2 - Borrar una tarea" << endl;
     cout << "  3 - Editar una tarea" << endl;
     cout << "  4 - Ver tareas" << endl;
-    cout << "  5 - Ver tareas mas urgentes" << endl;
-    cout << "  6 - Salir" << endl;
+    cout << "  5 - Salir" << endl;
     cout << ">>: "; 
     cin >> n;
     cin.ignore ( 100 , '\n');
@@ -145,16 +152,12 @@ int menu::showMenu() // Funcion que muestra el menu y te hace elegir una funcion
             break;
 
         case 4:        
-            showArrays();
+            showTasks();
 
             showMenu();
             break;
 
-        case 5: 
-            
-            break;
-        
-        case 6: return 0;
+        case 5: return 0;    
             break;
 
         default:
