@@ -13,13 +13,15 @@ using namespace std;
 
 vector <string> listTasks = {};
 vector <string> assignedTasks = {};
+vector <string> dateTasks = {};
+
 
 void showArrays(){ // Muestra el array de lista
 
     int u = 1;
 
     for(int i = 0; i<listTasks.size(); i++) {
-        cout << u << " -> " << listTasks[i] << " -> asignado a -> " << assignedTasks[i] << endl;
+        cout << u << " -> " << listTasks[i] << " -> asignado a -> " << assignedTasks[i] << " -> el dia -> " << dateTasks[i] <<endl;
         u = u+1;
     } 
 }
@@ -31,6 +33,7 @@ class task // Clase que contiene todo lo que tiene que ver con las tareas
 
         string nameTask; // candidata para el FreeSpace
         string assignTask; // candidata para el FreeSpace
+        string dateTask;
 
         int x;
 
@@ -50,7 +53,15 @@ void task::addTask() // Funcion que añade tareas
     
     getline(cin, assignTask);
 
-    cout << "Añadiendo la tarea: "<< nameTask << " y asignandola a : " << assignTask << "\n";
+    cout << "Escribe a el dia que quieres finalizar la tarea: \n";
+    try {   
+        getline(cin, dateTask);
+    }
+    catch (exception e ){ 
+        throw ;
+    }
+
+    cout << "Añadiendo la tarea: "<< nameTask << " y asignandola a : " << assignTask << " para el dia: " << dateTask <<endl;
 
     listTasks.push_back(nameTask);
     assignedTasks.push_back(assignTask);
@@ -73,6 +84,11 @@ void task::removeTask() // Funcion para eliminar tareas
     auto elementRemove1 = assignedTasks.begin() + (x-1);
     if (elementRemove1 != assignedTasks.end()) {
         assignedTasks.erase(elementRemove1);
+    }
+
+    auto elementRemove2 = dateTasks.begin() + (x-1);
+    if (elementRemove2 != dateTasks.end()) {
+        dateTasks.erase(elementRemove2);
     }
 
 }
