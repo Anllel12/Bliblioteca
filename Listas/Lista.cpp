@@ -16,6 +16,7 @@ Angel Esquinas Puig
 */
 
 #include <iostream>
+#include <list>
 
 using namespace std;
 
@@ -56,6 +57,5 @@ cliente::~cliente()
 
 int main(int argc, char const *argv[])
 {
-    
     return 0;
 }
