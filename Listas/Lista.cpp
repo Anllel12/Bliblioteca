@@ -20,30 +20,15 @@ Angel Esquinas Puig
 
 using namespace std;
 
-class caja
-{
-    private:
-        
-    public:
-        caja();
-        ~caja();
-};
-
-caja::caja()
-{
-}
-
-caja::~caja()
-{
-}
-
 class cliente
 {
     private:
-        
-    public:
+        string name;
+    public:       
         cliente();
         ~cliente();
+
+        void names();
 };
 
 cliente::cliente()
@@ -54,8 +39,41 @@ cliente::~cliente()
 {
 }
 
+void cliente::names(){
+    cout << "Dime los nombre de las personas que hay en la caja 1: \n";
+    cin << name;
+}
+
+class caja
+{
+    private:
+        list <string> caja1;
+        list <string> caja1;
+        list <int>::iterator it;
+
+        cliente cl;
+        
+    public:
+        caja();
+        ~caja();
+
+        void spliceCaja();
+};
+
+caja::caja()
+{
+}
+
+caja::~caja()
+{
+}
+
+void caja::spliceCaja(){
+}
 
 int main(int argc, char const *argv[])
 {
+    caja c;
+    c.spliceCaja();
     return 0;
 }
