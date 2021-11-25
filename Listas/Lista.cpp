@@ -20,15 +20,22 @@ Angel Esquinas Puig
 
 using namespace std;
 
+list <string> caja1;
+
+int u = 1; // Valor auxiliar
+
 class cliente
 {
     private:
-        string name;
-    public:       
+        string name; // Nombre de los clientes
+        string t; // Valor auxiliar
+
+        bool next=true;
+    public:         
         cliente();
         ~cliente();
 
-        void names();
+        void names(); // Ponemos el nombre de elos clientes
 };
 
 cliente::cliente()
@@ -39,25 +46,47 @@ cliente::~cliente()
 {
 }
 
-void cliente::names(){
-    cout << "Dime los nombre de las personas que hay en la caja 1: \n";
-    cin << name;
+void cliente::names(){ // Añadimos los clientes que hay en la cola de la caja 1
+
+    cout << "Dime los nombre del cliente " << u << " que hay en la caja 1: \n";
+    cin >> name;
+    caja1.push_back(name); // Añadimos a la lista el cliente
+    cout << "¿Hay mas clientes?: \n";
+    cin >> t;
+    u++;
+
+    while (next) // Entra en bucle hasta que ya no quiere añadir mas clientes
+    {
+        if (t=="s" || t=="S") // Comprobamos su respuesta
+        {
+            cout << "Dime los nombre del cliente " << u << " que hay en la caja 1: \n";
+            cin >> name;
+            caja1.push_back(name); // Añadimos a la lista el cliente
+            cout << "¿Hay mas clientes?: \n";
+            cin >> t;
+            u++;
+        }
+        else{
+            next = false;
+        }
+    }
 }
 
 class caja
 {
     private:
-        list <string> caja1;
-        list <string> caja1;
-        list <int>::iterator it;
-
-        cliente cl;
+        string x; // Valor auxiliar
+        
+        list <string> caja2;
+        list <string>::iterator it;
         
     public:
+        cliente cl;
+
         caja();
         ~caja();
 
-        void spliceCaja();
+        int spliceCaja();
 };
 
 caja::caja()
@@ -68,12 +97,47 @@ caja::~caja()
 {
 }
 
-void caja::spliceCaja(){
+int caja::spliceCaja(){ // Partimos la caja1 en la caja2 si se producen una serie de condiciones
+
+    while (caja1.size()<5) // La primera condicion es que haya al menos 5 personas en la caja para abrir otra
+    {
+        cout << "Son pocos clientes para abrir otra caja tiene que haber mas de 5 para abrirla\n";
+        cout << "¿Quiere añadir mas clientes?: \n";
+        cin >> x;
+
+        if (x=="s" || x=="S")
+        {
+            cl.names();
+        }
+        else{
+            cout << "Lo siento aqui termina todo \n";
+            return 0;
+        }
+    }
+    
+    it = caja1.begin();
+    advance(it,caja1.size()/2); // Partimos por la mitad la caja1
+    caja2.splice(caja2.end(), caja1, it, caja1.end()); // Movemos los nombres a la otra caja por orden
+
+    cout << "Caja 1: \n";
+
+    for(auto e:caja1){
+        cout << e << endl;
+    }
+
+    cout << "Caja 2: \n";
+
+    for(auto e:caja2){
+        cout << e << endl;
+    }
 }
 
 int main(int argc, char const *argv[])
 {
+    cliente cl;
     caja c;
-    c.spliceCaja();
+
+    cl.names(); // Añadimos los clientes que hay en la cola de la caja 1
+    c.spliceCaja(); // Partimos la caja1 en la caja2 si se producen una serie de condiciones
     return 0;
 }
