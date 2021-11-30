@@ -10,49 +10,84 @@ Angel Esquinas Puig
 */
 
 #include <iostream>
+#include <vector>
 #include <stack>
 
 using namespace std;
 
-stack<int> sort(stack<int> &input) // Funcion para ordenar la pila con otra pila
+class pila
+{
+    private:
+
+    public:
+        pila();
+        ~pila();
+
+        vector <int> initial;
+        vector <int> sort(vector <int> &input);
+};
+
+pila::pila() // Metemos los valores
+{
+    initial.push_back(34);
+    initial.push_back(3);
+    initial.push_back(31);
+    initial.push_back(98);
+    initial.push_back(92);
+    initial.push_back(23);
+}
+
+pila::~pila()
+{
+}
+
+
+vector <int> pila::sort(vector <int> &input) // Funcion para ordenar el vector con una pila
 {
     stack<int> tmpStack;
  
     while (!input.empty())
     {
-        int tmp = input.top(); // Guardamos el primer valor 
-        input.pop(); // Eliminamos el primer valor 
+        int tmp = input.back(); // Guardamos el ultimo valor 
+        input.pop_back(); // Eliminamos el el ultimo valor 
  
         while (!tmpStack.empty() && tmpStack.top() > tmp) // Hacemos esto mientras la Pila temporal no este vacia y el primer valor de la Pila no sea mayor al guardado
         {
-            input.push(tmpStack.top());
+            input.push_back(tmpStack.top());
             tmpStack.pop();
         }
  
         tmpStack.push(tmp);
     }
+
+    while (!tmpStack.empty()) // Pasamos la pila al vector
+    {
+        input.push_back(tmpStack.top());
+        tmpStack.pop(); // Vamos vaciando la pila por lo que se quedara vacia
+    }
  
-    return tmpStack; // Devolvemos la pila ordenada
+    return input; // Devolvemos el vector ordenado
 }
- 
-// main function
+
 int main()
 {
-    stack<int> initial;
-    initial.push(34);
-    initial.push(3);
-    initial.push(31);
-    initial.push(98);
-    initial.push(92);
-    initial.push(23);
+    pila p; 
+
+    cout << "Numeros sin ordenadar: \n";
  
-    stack<int> sortStack = sort(initial); // Mostramos la Pila ya ordenada
+    for (int i = 0; i < p.initial.size(); i++)
+    {
+        cout << p.initial.at(i) << " ";
+    }
+    
+    cout << endl;
+
+    p.sort(p.initial); // Mostramos el vector ya ordenado
     cout << "Numeros ordenados: \n";
  
-    while (!sortStack.empty())
+    for (int i = 0; i < p.initial.size(); i++)
     {
-        cout << sortStack.top()<< " ";
-        sortStack.pop();
+        cout << p.initial.at(i) << " ";
     }
     
     return 0;
