@@ -45,14 +45,6 @@ int main()
     initial.push(98);
     initial.push(92);
     initial.push(23);
-
-    cout << "Numeros sin ordenadar:\n"; // Mostramos la Pila sin ordenar
- 
-    while (!initial.empty())
-    {
-        cout << initial.top()<< " ";
-        initial.pop();
-    }
  
     stack<int> sortStack = sort(initial); // Mostramos la Pila ya ordenada
     cout << "Numeros ordenados: \n";
