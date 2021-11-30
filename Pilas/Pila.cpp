@@ -10,13 +10,58 @@ Angel Esquinas Puig
 */
 
 #include <iostream>
+#include <stack>
 
 using namespace std;
 
-
-
-int main(int argc, char const *argv[])
+stack<int> sort(stack<int> &input) // Funcion para ordenar la pila con otra pila
 {
+    stack<int> tmpStack;
+ 
+    while (!input.empty())
+    {
+        int tmp = input.top(); // Guardamos el primer valor 
+        input.pop(); // Eliminamos el primer valor 
+ 
+        while (!tmpStack.empty() && tmpStack.top() > tmp) // Hacemos esto mientras la Pila temporal no este vacia y el primer valor de la Pila no sea mayor al guardado
+        {
+            input.push(tmpStack.top());
+            tmpStack.pop();
+        }
+ 
+        tmpStack.push(tmp);
+    }
+ 
+    return tmpStack; // Devolvemos la pila ordenada
+}
+ 
+// main function
+int main()
+{
+    stack<int> initial;
+    initial.push(34);
+    initial.push(3);
+    initial.push(31);
+    initial.push(98);
+    initial.push(92);
+    initial.push(23);
+
+    cout << "Numeros sin ordenadar:\n"; // Mostramos la Pila sin ordenar
+ 
+    while (!initial.empty())
+    {
+        cout << initial.top()<< " ";
+        initial.pop();
+    }
+ 
+    stack<int> sortStack = sort(initial); // Mostramos la Pila ya ordenada
+    cout << "Numeros ordenados: \n";
+ 
+    while (!sortStack.empty())
+    {
+        cout << sortStack.top()<< " ";
+        sortStack.pop();
+    }
     
     return 0;
 }
