@@ -11,6 +11,24 @@ Angel Esquinas Puig
 
 using namespace std;
 
+class cola
+{
+private:
+    /* data */
+public:
+    cola(/* args */);
+    ~cola();
+};
+
+cola::cola(/* args */)
+{
+}
+
+cola::~cola()
+{
+}
+
+
 int main(int argc, char const *argv[])
 {
     /* code */
